@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
+const fs = require('fs');
+const path = require('path');
 
 dotenv.config();
 
@@ -23,7 +25,7 @@ const io = socketIo(server, {
 app.set('io', io);
 
 io.on('connection', (socket) => {
-  socket.on('disconnect', () => { });
+  socket.on('disconnect', () => {});
 });
 
 // 2. CORS đặt đầu tiên
@@ -62,10 +64,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// 4. Parsers
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
-const path = require('path');
+// 4. Parsers & Thư mục ảnh tĩnh
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
@@ -95,10 +94,12 @@ const connectDB = async () => {
 };
 connectDB();
 
-// 7. Nạp Routes
-const fs = require('fs');
-const path = require('path');
+// Route kiểm tra trạng thái server trên Render
+app.get('/', (req, res) => {
+  res.json({ status: 'OK', message: 'GearStore API is running' });
+});
 
+// 7. Nạp Routes an toàn
 const mountRoute = (prefix, relativePath) => {
   const fullPath = path.join(__dirname, relativePath + '.js');
   if (fs.existsSync(fullPath)) {
