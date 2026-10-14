@@ -126,6 +126,8 @@ mountRoute('/api/v1/conversations', './src/routes/conversationRoutes');
 mountRoute('/api/v1/messages', './src/routes/messageRoutes');
 mountRoute('/api/v1/upload', './src/routes/uploadRoutes');
 mountRoute('/api/v1/media', './src/routes/mediaRoutes');
+mountRoute('/api/v1/banners', './src/routes/bannerRoutes');
+mountRoute('/api/v1/settings', './src/routes/settingRoutes');
 
 // 8. Lắng nghe server
 const PORT = process.env.PORT || 5000;

@@ -4,6 +4,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
 import { WishlistProvider } from './context/WishlistContext';
+import AdminSocialSettings from './pages/admin/AdminSocialSettings';
 
 import MainLayout from './layouts/MainLayout';
 import AdminLayout from './layouts/AdminLayout';
@@ -59,7 +60,7 @@ export const App: React.FC = () => {
                   <Route path="admin/login" element={<AdminLoginPage />} />
                   <Route path="blogs" element={<CatalogPage />} />
                   <Route path="blog/:slug" element={<BlogDetailsPage />} />
-                  
+
                 </Route>
 
                 {/* Protected Admin Routes */}
@@ -82,6 +83,8 @@ export const App: React.FC = () => {
                   <Route path="coupons" element={<AdminCouponManager />} />
                   <Route path="users" element={<AdminUserManager />} />
                   <Route path="blogs" element={<AdminBlogManager />} />
+                  <Route path="settings" element={<AdminSocialSettings />} />
+                  <Route path="media" element={<AdminMediaManager />} />
                 </Route>
 
                 {/* 404 Fallback */}
